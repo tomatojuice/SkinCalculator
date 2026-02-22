@@ -19,10 +19,10 @@
 
 ## 🚀 リンク
 
-- **🏠 公式プロジェクトページ:** [https://calculator.github.io/SkinCalculator/](https://calculator.github.io/SkinCalculator/)
+- **🏠 公式プロジェクトページ:** [https://tomatojuice.github.io/SkinCalculator/](https://tomatojuice.github.io/SkinCalculator/)
 - **🛠️ ソースコードを見る:** [GitHub Repository](https://github.com/TomatoJuice/SkinCalculator)
 - **📺 公式YouTube:** [Tomato Juice Channel](https://www.youtube.com/@Tomato_Juice)
-- **📜 プライバシーポリシー:** [https://calculator.github.io/SkinCalculator/privacy](https://calculator.github.io/SkinCalculator/privacy)
+- **📜 プライバシーポリシー:** [https://tomatojuice.github.io/SkinCalculator/privacy](https://tomatojuice.github.io/SkinCalculator/privacy)
 
 ---
 
