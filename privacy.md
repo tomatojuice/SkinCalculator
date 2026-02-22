@@ -1,6 +1,6 @@
 # 🛡️ Privacy Policy / プライバシーポリシー
 
-[🏠 Back to Project Page / プロジェクトページに戻る](https://tomatojuice.github.io/Skin-Calculator/)
+[🏠 Back to Project Page / プロジェクトページに戻る](https://tomatojuice.github.io/SkinCalculator/)
 
 ---
 
