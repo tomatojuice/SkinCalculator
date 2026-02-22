@@ -430,7 +430,7 @@ fun HelpScreen(currentTheme: AppThemeType, onBack: () -> Unit) {
 
                 Button(
                     onClick = {
-                        try { uriHandler.openUri("https://tomatojuice.github.io/Skin-Calculator/privacy") } catch (e: Exception) { scope.launch { snackbarHostState.showSnackbar(errorMsg) } }
+                        try { uriHandler.openUri("https://tomatojuice.github.io/SkinCalculator/privacy") } catch (e: Exception) { scope.launch { snackbarHostState.showSnackbar(errorMsg) } }
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Gray),
                     modifier = Modifier.fillMaxWidth().height(50.dp).padding(top = 12.dp)
