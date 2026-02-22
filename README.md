@@ -19,10 +19,10 @@ Make your daily calculations more fun and convenient.
 
 ## 🚀 Links
 
-- **🏠 Official Project Page:** [https://calculator.github.io/Skin-Calculator/](https://calculator.github.io/Skin-Calculator/)
-- **🛠️ View Source:** [GitHub Repository](https://github.com/TomatoJuice/Skin-Calculator)
+- **🏠 Official Project Page:** [https://calculator.github.io/SkinCalculator/](https://calculator.github.io/SkinCalculator/)
+- **🛠️ View Source:** [GitHub Repository](https://github.com/TomatoJuice/SkinCalculator)
 - **📺 Official YouTube:** [Tomato Juice Channel](https://www.youtube.com/@Tomato_Juice)
-- **📜 Privacy Policy:** [https://calculator.github.io/Skin-Calculator/privacy](https://calculator.github.io/Skin-Calculator/privacy)
+- **📜 Privacy Policy:** [https://calculator.github.io/SkinCalculator/privacy](https://calculator.github.io/SkinCalculator/privacy)
 
 ---
 
