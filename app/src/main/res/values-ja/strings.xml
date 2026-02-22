@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">着せ替え電卓</string>
+    <string name="menu_skin">着せ替え・スキン ＞</string>
+    <string name="menu_language">言語 / Language ＞</string>
+    <string name="menu_shape_square">四角ボタン</string>
+    <string name="menu_shape_round">丸ボタン</string>
+    <string name="menu_vibration">振動（クリック感）</string>
+    <string name="menu_tax_setting">税率設定</string>
+    <string name="menu_back">＜ 戻る</string>
+    <string name="dialog_tax_title">税率設定</string>
+    <string name="dialog_tax_label">税率 (%)</string>
+    <string name="dialog_save">保存</string>
+    <string name="dialog_cancel">キャンセル</string>
+    <string name="history_title">計算履歴</string>
+    <string name="history_clear">履歴を消去</string>
+    <string name="history_empty">履歴なし</string>
+    <string name="cd_history">履歴</string>
+    <string name="cd_menu">メニュー</string>
+    <string name="lang_english">English</string>
+    <string name="lang_japanese">日本語</string>
+    <string name="lang_spanish">Español</string>
+    <string name="lang_german">Deutsch</string>
+    <string name="lang_russian">Русский</string>
+    <string name="lang_chinese">中文</string>
+    <string name="lang_korean">한국어</string>
+    <string name="menu_help">ヘルプ・使い方</string>
+    <string name="help_title">使い方ヘルプ</string>
+    <string name="help_tax_desc">設定した税率で計算します（小数点以下切り捨て）。</string>
+    <string name="help_tax_setting">右上のメニューから税率を変更できます。</string>
+    <string name="help_history">右上のリストアイコンから過去の計算履歴を確認できます。</string>
+    <string name="help_backspace">入力した数字を1文字消去します。</string>
+    <string name="help_c">現在入力中の数字をクリアします。</string>
+    <string name="help_ac">全ての計算と記憶（メモリー）をクリアします。</string>
+    <string name="help_m_plus">表示中の数字をメモリーに足します。</string>
+    <string name="help_m_minus">表示中の数字をメモリーから引きます。</string>
+    <string name="help_cm">メモリーに記憶した数字をクリアします。</string>
+    <string name="help_rm">メモリーに記憶した数字を呼び出します。</string>
+    <string name="help_sign">プラスとマイナスを切り替えます。</string>
+    <string name="help_youtube">公式チャンネル</string>
+    <string name="help_github">GitHub</string>
+    <string name="help_sponsor">スポンサー</string>
+    <string name="help_credit">制作 : Tomato Juice(Rato Lab)</string>
+    <string name="error_link_app_not_found">リンクを開くアプリが見つかりません</string>
+    <string name="help_privacy">プライバシーポリシー</string>
+
+    <string name="theme_indigo">インディゴ</string>
+    <string name="theme_pink">ピンク</string>
+    <string name="theme_teal">ティール</string>
+    <string name="theme_orange">オレンジ</string>
+    <string name="theme_brown">ブラウン</string>
+    <string name="theme_green">グリーン</string>
+    <string name="theme_grey">グレー</string>
+    <string name="theme_miku">ミク</string>
+
+    <string name="theme_macaron">マカロン</string>
+    <string name="theme_cotton_candy">コットンキャンディ</string>
+    <string name="theme_unicorn">ユニコーン</string>
+    <string name="theme_sherbet">シャーベット</string>
+    <string name="theme_peach_milk">ピーチミルク</string>
+    <string name="theme_pistachio">ピスタチオ</string>
+    <string name="theme_lavender">ラベンダー</string>
+
+</resources>
