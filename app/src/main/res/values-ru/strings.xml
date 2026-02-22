@@ -42,6 +42,8 @@
     <string name="help_credit">Разработано Tomato Juice(Rato Lab)</string>
     <string name="error_link_app_not_found">Приложение для открытия ссылки не найдено</string>
     <string name="help_privacy">Политика конфиденциальности</string>
+    <string name="btn_settings">Настройки</string>
+    <string name="btn_history">История</string>
 
     <string name="theme_indigo">Индиго</string>
     <string name="theme_pink">Розовый</string>

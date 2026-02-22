@@ -42,6 +42,8 @@
     <string name="help_credit">由 Tomato Juice(Rato Lab) 开发</string>
     <string name="error_link_app_not_found">未找到可打开链接的应用程序</string>
     <string name="help_privacy">隐私政策</string>
+    <string name="btn_settings">设置</string>
+    <string name="btn_history">历史</string>
 
     <string name="theme_indigo">靛蓝</string>
     <string name="theme_pink">粉色</string>

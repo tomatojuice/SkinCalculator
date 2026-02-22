@@ -42,6 +42,8 @@
     <string name="help_credit">制作 : Tomato Juice(Rato Lab)</string>
     <string name="error_link_app_not_found">リンクを開くアプリが見つかりません</string>
     <string name="help_privacy">プライバシーポリシー</string>
+    <string name="btn_settings">設定</string>
+    <string name="btn_history">履歴</string>
 
     <string name="theme_indigo">インディゴ</string>
     <string name="theme_pink">ピンク</string>

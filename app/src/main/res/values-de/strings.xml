@@ -42,6 +42,8 @@
     <string name="help_credit">Entwickelt von Tomato Juice(Rato Lab)</string>
     <string name="error_link_app_not_found">Keine App zum Öffnen des Links gefunden</string>
     <string name="help_privacy">Datenschutzerklärung</string>
+    <string name="btn_settings">Einstellungen</string>
+    <string name="btn_history">Verlauf</string>
 
     <string name="theme_indigo">Indigo</string>
     <string name="theme_pink">Pink</string>

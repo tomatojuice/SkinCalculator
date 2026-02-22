@@ -350,10 +350,11 @@ fun HelpKeyItem(keyText: String, description: String, currentTheme: AppThemeType
                 .width(50.dp)
                 .height(40.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(Brush.verticalGradient(listOf(topColor, bottomColor))), // ★グラデーションに変更
+                .background(Brush.verticalGradient(listOf(topColor, bottomColor))) // ★グラデーションに変更
+                .padding(horizontal = 8.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(keyText, fontWeight = FontWeight.Bold, color = textColor, fontSize = 16.sp) // ★文字色を適用
+            Text(keyText, fontWeight = FontWeight.Bold, color = textColor, fontSize = 14.sp, maxLines = 1) // ★文字色を適用
         }
         Spacer(modifier = Modifier.width(12.dp))
         Text(description, fontSize = 14.sp, color = Color.DarkGray, modifier = Modifier.weight(1f))
@@ -383,8 +384,8 @@ fun HelpScreen(currentTheme: AppThemeType, onBack: () -> Unit) {
 
             Column(modifier = Modifier.weight(1f).padding(horizontal = 24.dp).verticalScroll(scrollState)) {
                 HelpKeyItem("TAX±", stringResource(R.string.help_tax_desc), currentTheme)
-                HelpKeyItem("設定", stringResource(R.string.help_tax_setting), currentTheme)
-                HelpKeyItem("履歴", stringResource(R.string.help_history), currentTheme)
+                HelpKeyItem(stringResource(R.string.btn_settings), stringResource(R.string.help_tax_setting), currentTheme)
+                HelpKeyItem(stringResource(R.string.btn_history), stringResource(R.string.help_history), currentTheme)
                 Divider(modifier = Modifier.padding(vertical = 12.dp))
 
                 HelpKeyItem("▶", stringResource(R.string.help_backspace), currentTheme)
