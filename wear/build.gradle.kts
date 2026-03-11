@@ -13,8 +13,8 @@ android {
         applicationId = "com.ratolab.skin.calculator"
         minSdk = 30
         targetSdk = 36
-        versionCode = 7
-        versionName = "1.2-wear"
+        versionCode = 8
+        versionName = "1.3-wear"
 
     }
 
@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.wear.tooling.preview)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)
+    implementation("androidx.core:core-splashscreen:1.2.0")
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
