@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Skin Calculator"
 include(":app")
+include(":wear")
