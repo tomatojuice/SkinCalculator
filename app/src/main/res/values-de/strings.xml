@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Skin-Rechner</string>
-    <string name="menu_skin">Design / Skin ＞</string>
-    <string name="menu_language">Sprache ＞</string>
+    <string name="menu_skin">Design / Skin</string>
+    <string name="menu_language">Sprache</string>
     <string name="menu_shape_square">Quadratische Taste</string>
     <string name="menu_shape_round">Runde Taste</string>
     <string name="menu_vibration">Vibration</string>
@@ -44,6 +44,9 @@
     <string name="help_privacy">Datenschutzerklärung</string>
     <string name="btn_settings">Einstellungen</string>
     <string name="btn_history">Verlauf</string>
+    <string name="category_pastel">Pastell</string>
+    <string name="category_standard">Standard</string>
+    <string name="category_special">Spezial</string>
 
     <string name="theme_indigo">Indigo</string>
     <string name="theme_pink">Pink</string>
@@ -52,7 +55,6 @@
     <string name="theme_brown">Braun</string>
     <string name="theme_green">Grün</string>
     <string name="theme_grey">Grau</string>
-    <string name="theme_miku">Miku</string>
 
     <string name="theme_macaron">Macaron</string>
     <string name="theme_cotton_candy">Zuckerwatte</string>
@@ -61,4 +63,13 @@
     <string name="theme_peach_milk">Pfirsichmilch</string>
     <string name="theme_pistachio">Pistazie</string>
     <string name="theme_lavender">Lavendel</string>
+
+    <string name="theme_marble">MARBLE</string>
+    <string name="theme_miku">Miku</string>
+    <string name="theme_gumi">GUMI</string>
+    <string name="theme_luka">LUKA (Megurine Luka)</string>
+    <string name="theme_lin">LIN (Kagamine Rin)</string>
+    <string name="theme_ren">REN (Kagamine Ren)</string>
+    <string name="theme_teto">TETO (Kasane Teto)</string>
+    <string name="theme_yukari">YUKARI (Yuzuki Yukari)</string>
 </resources>

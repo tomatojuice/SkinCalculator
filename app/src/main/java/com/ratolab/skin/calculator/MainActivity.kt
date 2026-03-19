@@ -6,9 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -17,6 +19,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
@@ -42,6 +45,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -54,7 +58,7 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.launch
 import com.ratolab.skin.calculator.ui.theme.AppThemeType
-import com.ratolab.skin.calculator.ui.theme.TomaCalculatorTheme
+import com.ratolab.skin.calculator.ui.theme.getAppThemeConfig
 import java.util.Locale
 import androidx.activity.enableEdgeToEdge
 
@@ -87,7 +91,7 @@ class MainActivity : ComponentActivity() {
                 key(uiState.languageCode) {
                     val navController = rememberNavController()
 
-                    TomaCalculatorTheme(themeType = uiState.currentTheme) {
+                    MaterialTheme {
                         Surface(modifier = Modifier.fillMaxSize().safeDrawingPadding()) {
                             NavHost(navController = navController, startDestination = "calculator") {
                                 composable("calculator") {
@@ -164,11 +168,15 @@ fun CalculatorScreen(
     var showMenu by remember { mutableStateOf(false) }
     var showTaxDialog by remember { mutableStateOf(false) }
     var showHistorySheet by remember { mutableStateOf(false) }
+    var showThemeSheet by remember { mutableStateOf(false) }
+    var showLanguageSheet by remember { mutableStateOf(false) }
     var currentTaxRate by remember(uiState.taxRate) { mutableStateOf(uiState.taxRate) }
+
+    val themeConfig = getAppThemeConfig(uiState.currentTheme)
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (isLandscape) {
-            Row(modifier = Modifier.fillMaxSize().background(Color(0xFFFFF0F5))) {
+            Row(modifier = Modifier.fillMaxSize().background(themeConfig.displayBg)) {
                 DisplayArea(
                     modifier = Modifier.weight(1f).fillMaxHeight(),
                     uiState = uiState,
@@ -177,8 +185,8 @@ fun CalculatorScreen(
                     onMenuToggle = { showMenu = it },
                     onShowHistory = { showHistorySheet = true },
                     onNavigateToHelp = onNavigateToHelp,
-                    onLanguageChange = onLanguageChange,
-                    onThemeChange = onThemeChange,
+                    onShowThemeSheet = { showThemeSheet = true },
+                    onShowLanguageSheet = { showLanguageSheet = true },
                     onShowTaxDialog = { showTaxDialog = true },
                     onShapeToggle = onShapeToggle,
                     onVibToggle = onVibToggle
@@ -188,6 +196,7 @@ fun CalculatorScreen(
                     currentTheme = uiState.currentTheme,
                     isRoundShape = uiState.isRoundShape,
                     vibrationEnabled = uiState.vibrationEnabled,
+                    keypadBg = themeConfig.keypadBg,
                     onNumberClick = onNumberClick,
                     onOperatorClick = onOperatorClick,
                     onEqualClick = onEqualClick,
@@ -206,7 +215,7 @@ fun CalculatorScreen(
                 )
             }
         } else {
-            Column(modifier = Modifier.fillMaxSize().background(Color(0xFFFFF0F5))) {
+            Column(modifier = Modifier.fillMaxSize().background(themeConfig.displayBg)) {
                 DisplayArea(
                     modifier = Modifier.weight(1.0f).fillMaxWidth(),
                     uiState = uiState,
@@ -215,8 +224,8 @@ fun CalculatorScreen(
                     onMenuToggle = { showMenu = it },
                     onShowHistory = { showHistorySheet = true },
                     onNavigateToHelp = onNavigateToHelp,
-                    onLanguageChange = onLanguageChange,
-                    onThemeChange = onThemeChange,
+                    onShowThemeSheet = { showThemeSheet = true },
+                    onShowLanguageSheet = { showLanguageSheet = true },
                     onShowTaxDialog = { showTaxDialog = true },
                     onShapeToggle = onShapeToggle,
                     onVibToggle = onVibToggle
@@ -226,6 +235,7 @@ fun CalculatorScreen(
                     currentTheme = uiState.currentTheme,
                     isRoundShape = uiState.isRoundShape,
                     vibrationEnabled = uiState.vibrationEnabled,
+                    keypadBg = themeConfig.keypadBg,
                     onNumberClick = onNumberClick,
                     onOperatorClick = onOperatorClick,
                     onEqualClick = onEqualClick,
@@ -244,9 +254,37 @@ fun CalculatorScreen(
                 )
             }
         }
-
-        // ★ キラキラ背景はすべてのテーマで適用する
         TwinkleBackground(modifier = Modifier.fillMaxSize())
+    }
+
+    if (showThemeSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showThemeSheet = false },
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ) {
+            ThemeSelectionSheetContent(
+                currentTheme = uiState.currentTheme,
+                onThemeSelected = { selectedTheme ->
+                    onThemeChange(selectedTheme)
+                    showThemeSheet = false
+                }
+            )
+        }
+    }
+
+    if (showLanguageSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showLanguageSheet = false },
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        ) {
+            LanguageSelectionSheetContent(
+                currentLanguageCode = uiState.languageCode,
+                onLanguageSelected = { selectedLang ->
+                    onLanguageChange(selectedLang)
+                    showLanguageSheet = false
+                }
+            )
+        }
     }
 
     if (showTaxDialog) {
@@ -300,8 +338,8 @@ fun CalculatorScreen(
                                 fontSize = 24.sp,
                                 modifier = Modifier.padding(8.dp).fillMaxWidth(),
                                 textAlign = TextAlign.End,
-                                color = Color.DarkGray, // ★履歴も黒に戻す
-                                style = TextStyle(shadow = null) // 影は不要
+                                color = Color.DarkGray,
+                                style = TextStyle(shadow = null)
                             )
                             Divider(color = Color.LightGray.copy(alpha = 0.5f))
                         }
@@ -313,63 +351,115 @@ fun CalculatorScreen(
 }
 
 @Composable
-fun DisplayArea(modifier: Modifier, uiState: CalculatorUiState, showMenu: Boolean, isRoundShape: Boolean, onMenuToggle: (Boolean) -> Unit, onShowHistory: () -> Unit, onNavigateToHelp: () -> Unit, onLanguageChange: (String) -> Unit, onThemeChange: (AppThemeType) -> Unit, onShowTaxDialog: () -> Unit, onShapeToggle: (Boolean) -> Unit, onVibToggle: (Boolean) -> Unit) {
-    var menuMode by remember(showMenu) { mutableStateOf("MAIN") }
+fun LanguageSelectionSheetContent(currentLanguageCode: String, onLanguageSelected: (String) -> Unit) {
+    val languages = listOf(
+        "ja" to R.string.lang_japanese, "en" to R.string.lang_english, "es" to R.string.lang_spanish,
+        "de" to R.string.lang_german, "ru" to R.string.lang_russian, "zh" to R.string.lang_chinese, "ko" to R.string.lang_korean
+    )
 
+    Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 8.dp)) {
+        Text(stringResource(R.string.menu_language), fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(bottom = 16.dp))
+        LazyColumn(modifier = Modifier.padding(bottom = 32.dp)) {
+            items(languages) { (code, resId) ->
+                val isSelected = currentLanguageCode == code
+                Row(
+                    modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)).clickable { onLanguageSelected(code) }.padding(vertical = 16.dp, horizontal = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = stringResource(resId), fontSize = 18.sp, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal, color = if (isSelected) MaterialTheme.colorScheme.primary else Color.DarkGray)
+                    if (isSelected) Icon(Icons.Default.Check, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                }
+                Divider(color = Color.LightGray.copy(alpha = 0.3f))
+            }
+        }
+    }
+}
+
+@Composable
+fun ThemeSelectionSheetContent(currentTheme: AppThemeType, onThemeSelected: (AppThemeType) -> Unit) {
+    val pastelThemes = listOf(AppThemeType.MACARON, AppThemeType.COTTON_CANDY, AppThemeType.UNICORN, AppThemeType.SHERBET, AppThemeType.PEACH_MILK, AppThemeType.PISTACHIO, AppThemeType.LAVENDER, AppThemeType.MARBLE)
+    val standardThemes = listOf(AppThemeType.INDIGO, AppThemeType.PINK, AppThemeType.TEAL, AppThemeType.ORANGE, AppThemeType.BROWN, AppThemeType.GREEN, AppThemeType.GREY)
+
+    // ★ リストに TETO, YUKARI を追加！
+    val specialThemes = listOf(AppThemeType.MIKU, AppThemeType.GUMI, AppThemeType.LUKA, AppThemeType.LIN, AppThemeType.REN, AppThemeType.TETO, AppThemeType.YUKARI)
+
+    Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+        Text(stringResource(R.string.menu_skin), fontSize = 22.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 16.dp))
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            ThemeCategoryRow(title = stringResource(R.string.category_pastel), themes = pastelThemes, currentTheme = currentTheme, onThemeSelected = onThemeSelected)
+            Divider(modifier = Modifier.padding(vertical = 8.dp), color = Color.LightGray.copy(alpha = 0.5f))
+            ThemeCategoryRow(title = stringResource(R.string.category_standard), themes = standardThemes, currentTheme = currentTheme, onThemeSelected = onThemeSelected)
+            Divider(modifier = Modifier.padding(vertical = 8.dp), color = Color.LightGray.copy(alpha = 0.5f))
+            ThemeCategoryRow(title = stringResource(R.string.category_special), themes = specialThemes, currentTheme = currentTheme, onThemeSelected = onThemeSelected)
+            Spacer(modifier = Modifier.height(32.dp))
+        }
+    }
+}
+
+@Composable
+fun ThemeCategoryRow(title: String, themes: List<AppThemeType>, currentTheme: AppThemeType, onThemeSelected: (AppThemeType) -> Unit) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(title, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.DarkGray, modifier = Modifier.padding(bottom = 12.dp))
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.fillMaxWidth()) {
+            items(themes) { theme ->
+                ThemeSwatch(theme = theme, isSelected = currentTheme == theme, onClick = { onThemeSelected(theme) })
+            }
+        }
+    }
+}
+
+@Composable
+fun ThemeSwatch(theme: AppThemeType, isSelected: Boolean, onClick: () -> Unit) {
+    val config = getAppThemeConfig(theme)
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(72.dp)) {
+        Box(
+            modifier = Modifier
+                .size(60.dp)
+                .clip(CircleShape)
+                .background(Brush.verticalGradient(listOf(config.btnTop, config.btnBottom)))
+                .clickable { onClick() }
+                .then(if (isSelected) Modifier.border(4.dp, MaterialTheme.colorScheme.primary, CircleShape) else Modifier),
+            contentAlignment = Alignment.Center
+        ) { }
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = getThemeNameString(theme),
+            fontSize = 11.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+            color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Gray,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+fun DisplayArea(modifier: Modifier, uiState: CalculatorUiState, showMenu: Boolean, isRoundShape: Boolean, onMenuToggle: (Boolean) -> Unit, onShowHistory: () -> Unit, onNavigateToHelp: () -> Unit, onShowThemeSheet: () -> Unit, onShowLanguageSheet: () -> Unit, onShowTaxDialog: () -> Unit, onShapeToggle: (Boolean) -> Unit, onVibToggle: (Boolean) -> Unit) {
     Box(modifier = modifier.padding(start = 16.dp, top = 16.dp, end = 4.dp, bottom = 16.dp)) {
         Row(modifier = Modifier.align(Alignment.TopEnd)) {
             IconButton(onClick = onShowHistory) { Icon(Icons.Default.List, stringResource(R.string.cd_history), tint = Color.Gray) }
             Box {
                 IconButton(onClick = { onMenuToggle(!showMenu) }) { Icon(Icons.Default.MoreVert, stringResource(R.string.cd_menu), tint = Color.Gray) }
                 DropdownMenu(expanded = showMenu, onDismissRequest = { onMenuToggle(false) }) {
-                    if (menuMode == "MAIN") {
-                        DropdownMenuItem(text = { Text(stringResource(R.string.menu_skin)) }, onClick = { menuMode = "SKIN" })
-                        DropdownMenuItem(text = { Text(stringResource(R.string.menu_language)) }, onClick = { menuMode = "LANG" })
-                        DropdownMenuItem(text = { Text(if (isRoundShape) stringResource(R.string.menu_shape_square) else stringResource(R.string.menu_shape_round)) }, onClick = { onShapeToggle(!isRoundShape); onMenuToggle(false) })
-                        DropdownMenuItem(
-                            text = {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text(stringResource(R.string.menu_vibration))
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Switch(checked = uiState.vibrationEnabled, onCheckedChange = null, modifier = Modifier.scale(0.7f))
-                                }
-                            },
-                            onClick = { onVibToggle(!uiState.vibrationEnabled) }
-                        )
-                        Divider()
-                        DropdownMenuItem(text = { Text(stringResource(R.string.menu_tax_setting)) }, onClick = { onShowTaxDialog(); onMenuToggle(false) })
-                        DropdownMenuItem(text = { Text(stringResource(R.string.menu_help)) }, onClick = { onMenuToggle(false); onNavigateToHelp() })
-                    } else if (menuMode == "SKIN") {
-                        DropdownMenuItem(text = { Text(stringResource(R.string.menu_back), color = Color.Gray) }, onClick = { menuMode = "MAIN" })
-                        Divider()
-                        AppThemeType.values().forEach { theme ->
-                            DropdownMenuItem(
-                                text = {
-                                    Text(
-                                        text = getThemeNameString(theme),
-                                        fontWeight = if (uiState.currentTheme == theme) FontWeight.Bold else FontWeight.Normal,
-                                        color = if (uiState.currentTheme == theme) MaterialTheme.colorScheme.primary else Color.Unspecified
-                                    )
-                                },
-                                onClick = { onThemeChange(theme); onMenuToggle(false) }
-                            )
-                        }
-                    } else if (menuMode == "LANG") {
-                        DropdownMenuItem(text = { Text(stringResource(R.string.menu_back), color = Color.Gray) }, onClick = { menuMode = "MAIN" })
-                        Divider()
-                        listOf("ja", "en", "es", "de", "ru", "zh", "ko").forEach { lang ->
-                            val labelRes = when(lang) {
-                                "ja" -> R.string.lang_japanese; "en" -> R.string.lang_english
-                                "es" -> R.string.lang_spanish; "de" -> R.string.lang_german
-                                "ru" -> R.string.lang_russian; "zh" -> R.string.lang_chinese
-                                else -> R.string.lang_korean
+                    DropdownMenuItem(text = { Text(stringResource(R.string.menu_skin)) }, onClick = { onMenuToggle(false); onShowThemeSheet() })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.menu_language)) }, onClick = { onMenuToggle(false); onShowLanguageSheet() })
+                    DropdownMenuItem(text = { Text(if (isRoundShape) stringResource(R.string.menu_shape_square) else stringResource(R.string.menu_shape_round)) }, onClick = { onShapeToggle(!isRoundShape); onMenuToggle(false) })
+                    DropdownMenuItem(
+                        text = {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(stringResource(R.string.menu_vibration))
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Switch(checked = uiState.vibrationEnabled, onCheckedChange = null, modifier = Modifier.scale(0.7f))
                             }
-                            DropdownMenuItem(
-                                text = { Text(stringResource(labelRes), fontWeight = if (uiState.languageCode == lang) FontWeight.Bold else FontWeight.Normal, color = if (uiState.languageCode == lang) MaterialTheme.colorScheme.primary else Color.Unspecified) },
-                                onClick = { onLanguageChange(lang); onMenuToggle(false) }
-                            )
-                        }
-                    }
+                        },
+                        onClick = { onVibToggle(!uiState.vibrationEnabled) }
+                    )
+                    Divider()
+                    DropdownMenuItem(text = { Text(stringResource(R.string.menu_tax_setting)) }, onClick = { onShowTaxDialog(); onMenuToggle(false) })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.menu_help)) }, onClick = { onMenuToggle(false); onNavigateToHelp() })
                 }
             }
         }
@@ -377,8 +467,8 @@ fun DisplayArea(modifier: Modifier, uiState: CalculatorUiState, showMenu: Boolea
         Text(
             text = uiState.displayText,
             fontSize = 64.sp * fontSizeMultiplier,
-            color = Color.DarkGray, // ★ディスプレイの文字は黒に戻す！
-            style = TextStyle(shadow = null), // ★ディスプレイには影を適用しない
+            color = Color.DarkGray,
+            style = TextStyle(shadow = null),
             textAlign = TextAlign.End,
             maxLines = 1,
             softWrap = false,
@@ -396,6 +486,7 @@ fun KeypadArea(
     currentTheme: AppThemeType,
     isRoundShape: Boolean,
     vibrationEnabled: Boolean,
+    keypadBg: Color,
     onNumberClick: (String) -> Unit,
     onOperatorClick: (Int) -> Unit,
     onEqualClick: () -> Unit,
@@ -415,7 +506,7 @@ fun KeypadArea(
     val spacing = if (isRoundShape) 3.dp else 1.dp
     val outerPadding = if (isRoundShape) 3.dp else 0.dp
 
-    Column(modifier = modifier.background(Color(0xFFFCE4EC)).padding(outerPadding), verticalArrangement = Arrangement.spacedBy(spacing)) {
+    Column(modifier = modifier.background(keypadBg).padding(outerPadding), verticalArrangement = Arrangement.spacedBy(spacing)) {
         val rowMod = Modifier.weight(1f).fillMaxWidth()
 
         Row(modifier = rowMod, horizontalArrangement = Arrangement.spacedBy(spacing)) {
@@ -443,15 +534,15 @@ fun KeypadArea(
             CalcGridButton("4", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onNumberClick("4") }
             CalcGridButton("5", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onNumberClick("5") }
             CalcGridButton("6", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onNumberClick("6") }
-            CalcGridButton("x", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onOperatorClick(3) } // (3 = x)
-            CalcGridButton("÷", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onOperatorClick(4) } // (4 = ÷)
+            CalcGridButton("×", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onOperatorClick(3) }
+            CalcGridButton("÷", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onOperatorClick(4) }
         }
         Row(modifier = rowMod, horizontalArrangement = Arrangement.spacedBy(spacing)) {
             CalcGridButton("1", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onNumberClick("1") }
             CalcGridButton("2", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onNumberClick("2") }
             CalcGridButton("3", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onNumberClick("3") }
-            CalcGridButton("+", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onOperatorClick(1) } // (1 = +)
-            CalcGridButton("-", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onOperatorClick(2) } // (2 = -)
+            CalcGridButton("+", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onOperatorClick(1) }
+            CalcGridButton("-", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onOperatorClick(2) }
         }
         Row(modifier = rowMod, horizontalArrangement = Arrangement.spacedBy(spacing)) {
             CalcGridButton("0", Modifier.weight(1f), false, isRoundShape, vibrationEnabled, currentTheme) { onNumberClick("0") }
@@ -473,87 +564,16 @@ fun CalcGridButton(
     onClick: () -> Unit
 ) {
     val haptic = LocalHapticFeedback.current
+    val config = getAppThemeConfig(currentTheme)
+    val topColor = if (isAccent) config.accentTop else config.btnTop
+    val bottomColor = if (isAccent) config.accentBottom else config.btnBottom
 
-    // パステルテーマかどうかの判定
-    val isPastel = currentTheme in listOf(
-        AppThemeType.MACARON, AppThemeType.COTTON_CANDY, AppThemeType.UNICORN,
-        AppThemeType.SHERBET, AppThemeType.PEACH_MILK, AppThemeType.PISTACHIO, AppThemeType.LAVENDER
-    )
-
-    // ★ ビー玉のような立体感を出すための薄いグラデーションを定義
-    // MaterialThemeの色を直接使うのではなく、テーマごとに定義された色（薄い色）を使うように変更
-    var topColor = MaterialTheme.colorScheme.primary
-    var bottomColor = MaterialTheme.colorScheme.primaryContainer
-
-    if (isAccent) {
-        // AC, C ボタンはアクセントカラー（濃い色）を使う
-        topColor = MaterialTheme.colorScheme.tertiary
-        bottomColor = MaterialTheme.colorScheme.tertiaryContainer
-    } else {
-        // 通常ボタン
-        if (isPastel) {
-            // パステルテーマはMaterialThemeの色（薄い色）をそのまま使う
-            topColor = MaterialTheme.colorScheme.primary
-            bottomColor = MaterialTheme.colorScheme.primaryContainer
-        } else {
-            // ★ 非パステルテーマ（INDIGO, PINKなど）に対して、テーマの色相を保ちつつ、パステルテーマのような薄いグラデーションの色（top/bottom）を直接定義（ハードコード）
-            when (currentTheme) {
-                AppThemeType.INDIGO -> {
-                    // 水色から深いインディゴへ（ガラスの透明感を強調）
-                    topColor = Color(0xFFE1F5FE) // Light Blue 50
-                    bottomColor = Color(0xFF9FA8DA) // Indigo 200
-                }
-                AppThemeType.PINK -> {
-                    // ほんのりピーチから華やかなピンクへ
-                    topColor = Color(0xFFFFF0F5) // Lavender Blush
-                    bottomColor = Color(0xFFF48FB1) // Pink 200
-                }
-                AppThemeType.TEAL -> {
-                    // ミントグリーンから深いティールへ
-                    topColor = Color(0xFFE0F7FA) // Cyan 50
-                    bottomColor = Color(0xFF80CBC4) // Teal 200
-                }
-                AppThemeType.ORANGE -> {
-                    // 黄色からオレンジへ（フルーツキャンディのような発光感）
-                    topColor = Color(0xFFFFF9C4) // Yellow 100
-                    bottomColor = Color(0xFFFFCC80) // Orange 200
-                }
-                AppThemeType.BROWN -> {
-                    // 温かいサンドカラーからミルクチョコへ
-                    topColor = Color(0xFFFFF3E0) // Orange 50
-                    bottomColor = Color(0xFFBCAAA4) // Brown 200
-                }
-                AppThemeType.GREEN -> {
-                    // イエローグリーンから葉っぱの緑へ
-                    topColor = Color(0xFFF1F8E9) // Light Green 50
-                    bottomColor = Color(0xFFA5D6A7) // Green 200
-                }
-                AppThemeType.GREY -> {
-                    // 真っ白からクールなブルーグレーへ（アクリルガラス風）
-                    topColor = Color(0xFFFFFFFF) // Pure White
-                    bottomColor = Color(0xFFCFD8DC) // Blue Grey 200
-                }
-                AppThemeType.MIKU -> {
-                    // ユーザーさんのお気に入り！サイバー感のあるミクカラー
-                    topColor = Color(0xFF80DEEA) // サイバー感のある明るいシアン
-                    bottomColor = Color(0xFF1DE9B6) // 鮮やかなエメラルド系のティール
-                }
-                else -> {
-                    topColor = MaterialTheme.colorScheme.primary
-                    bottomColor = MaterialTheme.colorScheme.primaryContainer
-                }
-            }
-        }
-    }
-
-    // 文字サイズ
     val fontSize = when {
-        text in listOf("+", "-", "x", "÷", "=") -> 40.sp
+        text in listOf("+", "-", "×", "÷", "=") -> 40.sp
         text in listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "00", ".", "C", "AC") -> 32.sp
         else -> 20.sp
     }
 
-    // ★ 文字色はすべて焦げ茶色に。影をつける。アクセントボタン以外。影をつける。
     val textColor = if (!isAccent) Color(0xFF5D4037) else Color.White
     val textShadow = if (!isAccent) Shadow(color = Color(0x66000000), offset = Offset(2f, 2f), blurRadius = 4f) else null
 
@@ -572,7 +592,7 @@ fun CalcGridButton(
             text = text,
             fontSize = fontSize,
             color = textColor,
-            style = TextStyle(shadow = textShadow), // ★影を適用
+            style = TextStyle(shadow = textShadow),
             maxLines = 1,
             softWrap = false
         )
@@ -581,31 +601,7 @@ fun CalcGridButton(
 
 @Composable
 fun HelpKeyItem(keyText: String, description: String, currentTheme: AppThemeType) {
-    // パステルテーマかどうかの判定 (上と同じロジック。ハードコードする)
-    val isPastel = currentTheme in listOf(
-        AppThemeType.MACARON, AppThemeType.COTTON_CANDY, AppThemeType.UNICORN,
-        AppThemeType.SHERBET, AppThemeType.PEACH_MILK, AppThemeType.PISTACHIO, AppThemeType.LAVENDER
-    )
-
-    // グラデーションのベース色を取得（テーマごとの色を定義する。）
-    var topColor = MaterialTheme.colorScheme.primary
-    var bottomColor = MaterialTheme.colorScheme.primaryContainer
-
-    if (!isPastel) {
-        when (currentTheme) {
-            AppThemeType.INDIGO -> { topColor = Color(0xFFE8EAF6); bottomColor = Color(0xFFC5CAE9) }
-            AppThemeType.PINK -> { topColor = Color(0xFFFCE4EC); bottomColor = Color(0xFFF8BBD0) }
-            AppThemeType.TEAL -> { topColor = Color(0xFFE0F2F1); bottomColor = Color(0xFFB2DFDB) }
-            AppThemeType.ORANGE -> { topColor = Color(0xFFFFF3E0); bottomColor = Color(0xFFFFE0B2) }
-            AppThemeType.BROWN -> { topColor = Color(0xFFEFEBE9); bottomColor = Color(0xFFD7CCC8) }
-            AppThemeType.GREEN -> { topColor = Color(0xFFE8F5E9); bottomColor = Color(0xFFC8E6C9) }
-            AppThemeType.GREY -> { topColor = Color(0xFFFAFAFA); bottomColor = Color(0xFFF5F5F5) }
-            AppThemeType.MIKU -> { topColor = Color(0xFFE0F7FA); bottomColor = Color(0xFFB2EBF2) }
-            else -> {} // 既にMaterialThemeの色
-        }
-    }
-
-    // ★焦げ茶色と影にする
+    val config = getAppThemeConfig(currentTheme)
     val textColor = Color(0xFF5D4037)
     val textShadow = Shadow(color = Color(0x66000000), offset = Offset(2f, 2f), blurRadius = 4f)
 
@@ -615,7 +611,7 @@ fun HelpKeyItem(keyText: String, description: String, currentTheme: AppThemeType
                 .width(50.dp)
                 .height(40.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(Brush.verticalGradient(listOf(topColor, bottomColor))) // ★グラデーションに変更
+                .background(Brush.verticalGradient(listOf(config.btnTop, config.btnBottom)))
                 .padding(horizontal = 8.dp),
             contentAlignment = Alignment.Center
         ) {
@@ -623,13 +619,12 @@ fun HelpKeyItem(keyText: String, description: String, currentTheme: AppThemeType
                 keyText,
                 fontWeight = FontWeight.Bold,
                 color = textColor,
-                style = TextStyle(shadow = textShadow), // ★影を適用
+                style = TextStyle(shadow = textShadow),
                 fontSize = 14.sp,
                 maxLines = 1
             )
         }
         Spacer(modifier = Modifier.width(12.dp))
-        // 説明文の色は DarkGray のまま（焦げ茶より少し濃い）
         Text(description, fontSize = 14.sp, color = Color.DarkGray, modifier = Modifier.weight(1f))
     }
 }
@@ -641,8 +636,9 @@ fun HelpScreen(currentTheme: AppThemeType, onBack: () -> Unit) {
     val scope = rememberCoroutineScope()
     val uriHandler = LocalUriHandler.current
     val errorMsg = stringResource(R.string.error_link_app_not_found)
+    val config = getAppThemeConfig(currentTheme)
 
-    Scaffold(snackbarHost = { SnackbarHost(hostState = snackbarHostState) }, containerColor = Color(0xFFFFF0F5)) { paddingValues ->
+    Scaffold(snackbarHost = { SnackbarHost(hostState = snackbarHostState) }, containerColor = config.displayBg) { paddingValues ->
         Column(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
                 IconButton(onClick = onBack) { Icon(Icons.Default.ArrowBack, contentDescription = "Back") }
@@ -724,6 +720,15 @@ fun getThemeNameString(theme: AppThemeType): String {
         AppThemeType.PEACH_MILK -> R.string.theme_peach_milk
         AppThemeType.PISTACHIO -> R.string.theme_pistachio
         AppThemeType.LAVENDER -> R.string.theme_lavender
+        AppThemeType.MARBLE -> R.string.theme_marble
+        AppThemeType.GUMI -> R.string.theme_gumi
+        AppThemeType.LUKA -> R.string.theme_luka
+        AppThemeType.LIN -> R.string.theme_lin
+        AppThemeType.REN -> R.string.theme_ren
+
+        // ★追加
+        AppThemeType.TETO -> R.string.theme_teto
+        AppThemeType.YUKARI -> R.string.theme_yukari
     }
     return stringResource(resId)
 }

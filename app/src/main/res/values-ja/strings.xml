@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">着せ替え電卓</string>
-    <string name="menu_skin">着せ替え・スキン ＞</string>
-    <string name="menu_language">言語 / Language ＞</string>
+    <string name="menu_skin">着せ替え・スキン</string>
+    <string name="menu_language">言語 / Language</string>
     <string name="menu_shape_square">四角ボタン</string>
     <string name="menu_shape_round">丸ボタン</string>
     <string name="menu_vibration">振動（クリック感）</string>
@@ -44,6 +44,9 @@
     <string name="help_privacy">プライバシーポリシー</string>
     <string name="btn_settings">設定</string>
     <string name="btn_history">履歴</string>
+    <string name="category_pastel">パステル</string>
+    <string name="category_standard">スタンダード</string>
+    <string name="category_special">スペシャル</string>
 
     <string name="theme_indigo">インディゴ</string>
     <string name="theme_pink">ピンク</string>
@@ -52,7 +55,6 @@
     <string name="theme_brown">ブラウン</string>
     <string name="theme_green">グリーン</string>
     <string name="theme_grey">グレー</string>
-    <string name="theme_miku">ミク</string>
 
     <string name="theme_macaron">マカロン</string>
     <string name="theme_cotton_candy">コットンキャンディ</string>
@@ -62,4 +64,12 @@
     <string name="theme_pistachio">ピスタチオ</string>
     <string name="theme_lavender">ラベンダー</string>
 
+    <string name="theme_marble">MARBLE (マーブル)</string>
+    <string name="theme_miku">MIKU</string>
+    <string name="theme_gumi">GUMI</string>
+    <string name="theme_luka">LUKA (巡音ルカ)</string>
+    <string name="theme_lin">LIN (鏡音リン)</string>
+    <string name="theme_ren">REN (鏡音レン)</string>
+    <string name="theme_teto">TETO (重音テト)</string>
+    <string name="theme_yukari">YUKARI (結月ゆかり)</string>
 </resources>

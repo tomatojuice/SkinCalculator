@@ -20,8 +20,8 @@ android {
         applicationId = "com.ratolab.skin.calculator"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
-        versionName = "1.1"
+        versionCode = 11
+        versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -52,7 +52,7 @@ android {
     }
     buildFeatures {
         compose = true
-        // ★ これを true にしないと BuildConfig が生成されません
+        // これを true にしないと BuildConfig が生成されない
         buildConfig = true
     }
 }

@@ -16,7 +16,7 @@ data class EngineState(
 class CalculatorEngine {
     private var currentInput = "0"
     private var previousValue = BigDecimal.ZERO
-    private var currentOperator = 0 // 0:なし, 1:+, 2:-, 3:x, 4:÷
+    private var currentOperator = 0 // 0:なし, 1:+, 2:-, 3:×, 4:÷
     private var memoryValue = BigDecimal.ZERO
 
     private var isWaitingForNextNumber = true
@@ -95,13 +95,13 @@ class CalculatorEngine {
         return getState()
     }
 
-    // ★ 変更：イコールが押された瞬間に「計算式」の文字列を作る
+    // ★ 変更：イコールが押された瞬間に「計算式」の文字列を作る（x を × に変更）
     fun equalClick(): EngineState {
         val prevStr = addCommas(formatBigDecimal(previousValue))
         val opStr = when (currentOperator) {
             1 -> "+"
             2 -> "-"
-            3 -> "x"
+            3 -> "×"
             4 -> "÷"
             else -> ""
         }

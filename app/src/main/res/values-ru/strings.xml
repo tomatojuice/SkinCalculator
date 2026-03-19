@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Калькулятор Тем</string>
-    <string name="menu_skin">Тема / Скин ＞</string>
-    <string name="menu_language">Язык ＞</string>
+    <string name="menu_skin">Тема / Скин</string>
+    <string name="menu_language">Язык</string>
     <string name="menu_shape_square">Квадратная кнопка</string>
     <string name="menu_shape_round">Круглая кнопка</string>
     <string name="menu_vibration">Вибрация</string>
@@ -44,6 +44,9 @@
     <string name="help_privacy">Политика конфиденциальности</string>
     <string name="btn_settings">Настройки</string>
     <string name="btn_history">История</string>
+    <string name="category_pastel">Пастель</string>
+    <string name="category_standard">Стандарт</string>
+    <string name="category_special">Специальные</string>
 
     <string name="theme_indigo">Индиго</string>
     <string name="theme_pink">Розовый</string>
@@ -52,7 +55,6 @@
     <string name="theme_brown">Коричневый</string>
     <string name="theme_green">Зеленый</string>
     <string name="theme_grey">Серый</string>
-    <string name="theme_miku">Мику</string>
 
     <string name="theme_macaron">Макарон</string>
     <string name="theme_cotton_candy">Сахарная вата</string>
@@ -61,4 +63,13 @@
     <string name="theme_peach_milk">Персиковое молоко</string>
     <string name="theme_pistachio">Фисташковый</string>
     <string name="theme_lavender">Лаванда</string>
+
+    <string name="theme_marble">MARBLE (Мрамор)</string>
+    <string name="theme_miku">Мику</string>
+    <string name="theme_gumi">GUMI</string>
+    <string name="theme_luka">LUKA (Мэгуринэ Лука)</string>
+    <string name="theme_lin">LIN (Кагаминэ Рин)</string>
+    <string name="theme_ren">REN (Кагаминэ Рен)</string>
+    <string name="theme_teto">TETO (Касанэ Тэто)</string>
+    <string name="theme_yukari">YUKARI (Юдзуки Юкари)</string>
 </resources>

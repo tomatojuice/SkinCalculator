@@ -13,8 +13,8 @@ android {
         applicationId = "com.ratolab.skin.calculator"
         minSdk = 30
         targetSdk = 36
-        versionCode = 8
-        versionName = "1.3-wear"
+        versionCode = 12
+        versionName = "1.4-wear"
 
     }
 
