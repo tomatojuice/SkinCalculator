@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Skin Calculator</string>
+    <string name="menu_skin">Thème / Peau</string>
+    <string name="menu_language">Langue</string>
+    <string name="menu_shape_square">Bouton Carré</string>
+    <string name="menu_shape_round">Bouton Rond</string>
+    <string name="menu_vibration">Vibration (Haptique)</string>
+    <string name="menu_tax_setting">Réglage du Taux de Taxe</string>
+    <string name="menu_back">＜ Retour</string>
+    <string name="dialog_tax_title">Réglage du Taux de Taxe</string>
+    <string name="dialog_tax_label">Taux de Taxe (%)</string>
+    <string name="dialog_save">Enregistrer</string>
+    <string name="dialog_cancel">Annuler</string>
+    <string name="history_title">Historique des Calculs</string>
+    <string name="history_clear">Effacer l\'Historique</string>
+    <string name="history_empty">Aucun historique</string>
+    <string name="cd_history">Historique</string>
+    <string name="cd_menu">Menu</string>
+
+    <string name="lang_english">English</string>
+    <string name="lang_japanese">日本語</string>
+    <string name="lang_spanish">Español</string>
+    <string name="lang_german">Deutsch</string>
+    <string name="lang_russian">Русский</string>
+    <string name="lang_chinese">中文</string>
+    <string name="lang_korean">한국어</string>
+    <string name="lang_hindi">हिन्दी</string>
+    <string name="lang_french">Français</string> <string name="menu_help">Aide / Utilisation</string>
+    <string name="help_title">Comment Utiliser</string>
+    <string name="help_tax_desc">Calcule avec le taux de taxe défini (les décimales sont arrondies à l\'inférieur).</string>
+    <string name="help_tax_setting">Vous pouvez modifier le taux de taxe depuis le menu en haut à droite.</string>
+    <string name="help_history">Vous pouvez consulter l\'historique des calculs depuis l\'icône de liste en haut à droite.</string>
+    <string name="help_backspace">Supprime un caractère du nombre saisi.</string>
+    <string name="help_c">Efface le nombre actuellement saisi.</string>
+    <string name="help_ac">Efface tous les calculs et la mémoire.</string>
+    <string name="help_m_plus">Ajoute le nombre affiché à la mémoire.</string>
+    <string name="help_m_minus">Soustrait le nombre affiché de la mémoire.</string>
+    <string name="help_cm">Efface le nombre stocké dans la mémoire.</string>
+    <string name="help_rm">Rappelle le nombre stocké dans la mémoire.</string>
+    <string name="help_sign">Bascule entre positif et négatif.</string>
+    <string name="help_youtube">Chaîne Officielle</string>
+    <string name="help_github">GitHub</string>
+    <string name="help_sponsor">Sponsor</string>
+    <string name="help_credit">Créé par : Tomato Juice (Rato Lab)</string>
+    <string name="error_link_app_not_found">Aucune application trouvée pour ouvrir le lien.</string>
+    <string name="help_privacy">Politique de Confidentialité</string>
+    <string name="btn_settings">Paramètres</string>
+    <string name="btn_history">Historique</string>
+    <string name="category_pastel">Pastel</string>
+    <string name="category_standard">Standard</string>
+    <string name="category_special">Spécial</string>
+
+    <string name="theme_indigo">Indigo</string>
+    <string name="theme_pink">Rose</string>
+    <string name="theme_teal">Sarcelle</string>
+    <string name="theme_orange">Orange</string>
+    <string name="theme_brown">Marron</string>
+    <string name="theme_green">Vert</string>
+    <string name="theme_grey">Gris</string>
+
+    <string name="theme_macaron">Macaron</string>
+    <string name="theme_cotton_candy">Barbe à Papa</string>
+    <string name="theme_unicorn">Licorne</string>
+    <string name="theme_sherbet">Sorbet</string>
+    <string name="theme_peach_milk">Lait à la Pêche</string>
+    <string name="theme_pistachio">Pistache</string>
+    <string name="theme_lavender">Lavande</string>
+
+    <string name="theme_marble">MARBRE</string>
+    <string name="theme_miku">MIKU</string>
+    <string name="theme_gumi">GUMI</string>
+    <string name="theme_luka">LUKA (Megurine Luka)</string>
+    <string name="theme_lin">RIN (Kagamine Rin)</string>
+    <string name="theme_ren">REN (Kagamine Ren)</string>
+    <string name="theme_teto">TETO (Kasane Teto)</string>
+    <string name="theme_yukari">YUKARI (Yuzuki Yukari)</string>
+</resources>

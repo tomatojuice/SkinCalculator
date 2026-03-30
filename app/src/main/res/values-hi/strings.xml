@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Skin Calculator</string>
+    <string name="menu_skin">थीम / स्किन</string>
+    <string name="menu_language">भाषा</string>
+    <string name="menu_shape_square">चौकोर बटन</string>
+    <string name="menu_shape_round">गोल बटन</string>
+    <string name="menu_vibration">वाइब्रेशन (हैप्टिक)</string>
+    <string name="menu_tax_setting">टैक्स दर सेटिंग</string>
+    <string name="menu_back">＜ वापस</string>
+    <string name="dialog_tax_title">टैक्स दर सेटिंग</string>
+    <string name="dialog_tax_label">टैक्स दर (%)</string>
+    <string name="dialog_save">सहेजें</string>
+    <string name="dialog_cancel">रद्द करें</string>
+    <string name="history_title">गणना का इतिहास</string>
+    <string name="history_clear">इतिहास मिटाएं</string>
+    <string name="history_empty">कोई इतिहास नहीं</string>
+    <string name="cd_history">इतिहास</string>
+    <string name="cd_menu">मेनू</string>
+
+    <string name="lang_english">English</string>
+    <string name="lang_japanese">日本語</string>
+    <string name="lang_spanish">Español</string>
+    <string name="lang_german">Deutsch</string>
+    <string name="lang_russian">Русский</string>
+    <string name="lang_chinese">中文</string>
+    <string name="lang_korean">한국어</string>
+    <string name="lang_hindi">हिन्दी</string>
+    <string name="lang_french">Français</string>
+    <string name="menu_help">सहायता / कैसे उपयोग करें</string>
+    <string name="help_title">उपयोग कैसे करें</string>
+    <string name="help_tax_desc">निर्धारित टैक्स दर के साथ गणना करता है (दशमलव को नीचे पूर्णांकित किया जाता है)।</string>
+    <string name="help_tax_setting">आप ऊपर दाईं ओर के मेनू से टैक्स दर बदल सकते हैं।</string>
+    <string name="help_history">आप ऊपर दाईं ओर स्थित सूची आइकन से गणना का इतिहास देख सकते हैं。</string>
+    <string name="help_backspace">दर्ज की गई संख्या का एक वर्ण हटाता है।</string>
+    <string name="help_c">वर्तमान में दर्ज संख्या को मिटाता है।</string>
+    <string name="help_ac">सभी गणनाओं और मेमोरी को मिटाता है।</string>
+    <string name="help_m_plus">प्रदर्शित संख्या को मेमोरी में जोड़ता है।</string>
+    <string name="help_m_minus">मेमोरी से प्रदर्शित संख्या को घटाता है।</string>
+    <string name="help_cm">मेमोरी में सहेजी गई संख्या को मिटाता है।</string>
+    <string name="help_rm">मेमोरी में सहेजी गई संख्या को वापस लाता है।</string>
+    <string name="help_sign">धनात्मक और ऋणात्मक के बीच टॉगल करता है।</string>
+    <string name="help_youtube">आधिकारिक चैनल</string>
+    <string name="help_github">GitHub</string>
+    <string name="help_sponsor">प्रायोजक</string>
+    <string name="help_credit">निर्माता : Tomato Juice (Rato Lab)</string>
+    <string name="error_link_app_not_found">लिंक खोलने के लिए कोई ऐप नहीं मिला。</string>
+    <string name="help_privacy">गोपनीयता नीति</string>
+    <string name="btn_settings">सेटिंग्स</string>
+    <string name="btn_history">इतिहास</string>
+    
+    <string name="category_pastel">पेस्टल</string>
+    <string name="category_standard">मानक</string>
+    <string name="category_special">विशेष</string>
+
+    <string name="theme_indigo">इंडिगो</string>
+    <string name="theme_pink">पिंक</string>
+    <string name="theme_teal">टील</string>
+    <string name="theme_orange">ऑरेंज</string>
+    <string name="theme_brown">ब्राउन</string>
+    <string name="theme_green">ग्रीन</string>
+    <string name="theme_grey">ग्रे</string>
+
+    <string name="theme_macaron">मैकरॉन</string>
+    <string name="theme_cotton_candy">कॉटन कैंडी</string>
+    <string name="theme_unicorn">यूनिकॉर्न</string>
+    <string name="theme_sherbet">शर्बत</string>
+    <string name="theme_peach_milk">पीच मिल्क</string>
+    <string name="theme_pistachio">पिस्टैचियो</string>
+    <string name="theme_lavender">लैवेंडर</string>
+
+    <string name="theme_marble">MARBLE (मार्बल)</string>
+    <string name="theme_miku">MIKU</string>
+    <string name="theme_gumi">GUMI</string>
+    <string name="theme_luka">LUKA (मेगुरिन लुका)</string>
+    <string name="theme_lin">LIN (कागामिन रिन)</string>
+    <string name="theme_ren">REN (कागामिन रेन)</string>
+    <string name="theme_teto">TETO (कसाने टेटो)</string>
+    <string name="theme_yukari">YUKARI (युज़ुकी युकारी)</string>
+</resources>
