@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 data class WearCalculatorUiState(
-    val displayText: String = "0"
+    val displayText: String = "0",
+    val expressionText: String = ""
 )
 
 class WearCalculatorViewModel : ViewModel() {
@@ -19,7 +20,7 @@ class WearCalculatorViewModel : ViewModel() {
     fun onInputNumber(number: String) { updateStateFromResult(engine.inputNumber(number)) }
     fun onOperatorClick(operator: Int) { updateStateFromResult(engine.operatorClick(operator)) }
     fun onEqualClick() { updateStateFromResult(engine.equalClick()) }
-    fun onClearC() { updateStateFromResult(engine.clearC()) }   // ★復活：Cボタン用
+    fun onClearC() { updateStateFromResult(engine.clearC()) }
     fun onClearAC() { updateStateFromResult(engine.clearAC()) }
     fun onBackspace() { updateStateFromResult(engine.backspace()) }
     fun onToggleSign() { updateStateFromResult(engine.toggleSign()) }
@@ -27,7 +28,10 @@ class WearCalculatorViewModel : ViewModel() {
 
     private fun updateStateFromResult(result: EngineState) {
         _uiState.update { state ->
-            state.copy(displayText = result.displayText)
+            state.copy(
+                displayText = result.displayText,
+                expressionText = result.expressionText // ★追加
+            )
         }
     }
 }

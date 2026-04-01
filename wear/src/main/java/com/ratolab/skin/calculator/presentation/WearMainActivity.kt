@@ -119,26 +119,48 @@ class WearMainActivity : ComponentActivity() {
                     var fontSizeMultiplier by remember(uiState.displayText) { mutableFloatStateOf(1f)}
                     val baseTextSize = (safeAreaSide.value * 0.22f).sp
 
-                    Text(
-                        text = uiState.displayText,
-                        fontSize = baseTextSize * fontSizeMultiplier,
-                        color = Color.DarkGray,
-                        textAlign = TextAlign.End,
-                        maxLines = 1,
-                        softWrap = false,
-                        onTextLayout = { textLayoutResult ->
-                            if (textLayoutResult.hasVisualOverflow) {
-                                fontSizeMultiplier *= 0.9f
-                            }
-                        },
+                    // 数字エリア全体をタップ可能にし、上段に計算過程を表示
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
                                 val nextOrdinal = (currentTheme.ordinal + 1) % AppThemeType.entries.size
                                 currentTheme = AppThemeType.entries[nextOrdinal]
                             }
-                            .padding(bottom = (safeAreaSide.value * 0.05f).dp, end = 4.dp)
-                    )
+                            // 下の余白(padding)をギリギリまで削って、ボタンが潰れるのを防ぐ
+                            .padding(bottom = 2.dp, end = 4.dp),
+                        horizontalAlignment = Alignment.End,
+                        verticalArrangement = Arrangement.Bottom
+                    ) {
+                        // 上段：計算過程 (1 + 2 + ...)
+                        Text(
+                            text = uiState.expressionText,
+                            // フォントサイズをほんの少し小さくして圧迫感を減らす
+                            fontSize = baseTextSize * 0.4f,
+                            // 濃いグレー(DarkGray)の半透明
+                            color = Color.DarkGray.copy(alpha = 0.6f),
+                            maxLines = 1,
+                            softWrap = false,
+                            textAlign = TextAlign.End,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        // 下段：メインの数字
+                        Text(
+                            text = uiState.displayText,
+                            fontSize = baseTextSize * fontSizeMultiplier,
+                            color = Color.DarkGray,
+                            textAlign = TextAlign.End,
+                            maxLines = 1,
+                            softWrap = false,
+                            onTextLayout = { textLayoutResult ->
+                                if (textLayoutResult.hasVisualOverflow) {
+                                    fontSizeMultiplier *= 0.9f
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
 
                     WearKeypadArea(
                         modifier = Modifier.weight(1f),
@@ -228,8 +250,14 @@ fun WearCalcButton(
 
     val finalFontSize = when {
         text.length >= 2 -> baseFontSize * 0.8f
-        text == "⌫" -> baseFontSize * 1.1f
+        text == "⌫" -> baseFontSize * 1.0f
         else -> baseFontSize
+    }
+
+    val baselineShift = if (text == "⌫") {
+        androidx.compose.ui.text.style.BaselineShift(0.17f) // 0.15 = 15%上に持ち上げる。ここで高さ調整
+    } else {
+        androidx.compose.ui.text.style.BaselineShift.None
     }
 
     Box(
@@ -258,7 +286,7 @@ fun WearCalcButton(
             drawCircle(color = Color.Black.copy(alpha = 0.2f), radius = radius - 1.dp.toPx(), center = center.copy(x = center.x + 1.dp.toPx(), y = center.y + 1.dp.toPx()), style = Stroke(width = 1.dp.toPx()))
         }
 
-        Text(text = text, fontSize = finalFontSize, color = textColor, maxLines = 1, softWrap = false)
+        Text(text = text, fontSize = finalFontSize, color = textColor, maxLines = 1, softWrap = false,style = androidx.compose.ui.text.TextStyle(baselineShift = baselineShift))
     }
 }
 

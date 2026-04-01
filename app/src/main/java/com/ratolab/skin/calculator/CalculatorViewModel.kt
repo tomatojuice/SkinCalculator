@@ -24,6 +24,7 @@ val defaultLanguageCode = if (supportedLangs.contains(systemLang)) systemLang el
 
 data class CalculatorUiState(
     val displayText: String = "0",
+    val expressionText: String = "",
     val currentTheme: AppThemeType = AppThemeType.INDIGO,
     val hasMemory: Boolean = false,
     val isRoundShape: Boolean = false,
@@ -138,6 +139,7 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
 
             state.copy(
                 displayText = result.displayText,
+                expressionText = result.expressionText,
                 hasMemory = result.hasMemory,
                 history = updatedHistory
             )

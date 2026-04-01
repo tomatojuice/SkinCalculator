@@ -6,11 +6,12 @@ import java.math.MathContext
 import java.math.RoundingMode
 import kotlin.math.sqrt
 
-// ★ 変更：履歴（newHistoryLine）をUIに渡せるように追加
+// ★ 変更：UIに計算過程(expressionText)を渡すためのプロパティを追加
 data class EngineState(
     val displayText: String,
     val hasMemory: Boolean,
-    val newHistoryLine: String? = null
+    val newHistoryLine: String? = null,
+    val expressionText: String = "" // ★追加
 )
 
 class CalculatorEngine {
@@ -22,6 +23,10 @@ class CalculatorEngine {
     private var isWaitingForNextNumber = true
     private var lastActionWasOperator = false
 
+    // ★ 追加：計算過程を保持する変数
+    private var expressionString = ""
+    private var isCalculated = false
+
     private val TAG = "CalcEngine"
 
     private fun logState(action: String) {
@@ -31,7 +36,8 @@ class CalculatorEngine {
     private fun getState(): EngineState {
         return EngineState(
             displayText = addCommas(formatDisplay(currentInput)),
-            hasMemory = memoryValue.compareTo(BigDecimal.ZERO) != 0
+            hasMemory = memoryValue.compareTo(BigDecimal.ZERO) != 0,
+            expressionText = expressionString // ★追加
         )
     }
 
@@ -68,6 +74,9 @@ class CalculatorEngine {
     }
 
     fun inputNumber(number: String): EngineState {
+        if (isCalculated) {
+            isCalculated = false
+        }
         if (isWaitingForNextNumber) {
             currentInput = if (number == ".") "0." else number
             isWaitingForNextNumber = false
@@ -85,8 +94,21 @@ class CalculatorEngine {
     }
 
     fun operatorClick(operator: Int): EngineState {
+        val opStr = when (operator) { 1 -> "+"; 2 -> "-"; 3 -> "×"; 4 -> "÷"; else -> "" }
+
         if (!lastActionWasOperator) {
+            val numStr = addCommas(formatDisplay(currentInput))
+            if (isCalculated) {
+                expressionString = "$numStr $opStr "
+                isCalculated = false
+            } else {
+                expressionString += "$numStr $opStr "
+            }
             calculatePending()
+        } else {
+            if (expressionString.isNotEmpty()) {
+                expressionString = expressionString.dropLast(3) + "$opStr "
+            }
         }
         currentOperator = operator
         isWaitingForNextNumber = true
@@ -95,16 +117,7 @@ class CalculatorEngine {
         return getState()
     }
 
-    // ★ 変更：イコールが押された瞬間に「計算式」の文字列を作る
     fun equalClick(): EngineState {
-        val prevStr = addCommas(formatBigDecimal(previousValue))
-        val opStr = when (currentOperator) {
-            1 -> "+"
-            2 -> "-"
-            3 -> "x"
-            4 -> "÷"
-            else -> ""
-        }
         val currentStr = addCommas(try { formatBigDecimal(BigDecimal(currentInput)) } catch(e:Exception){"0"})
         val isCalculable = currentOperator != 0 && !isWaitingForNextNumber
 
@@ -113,18 +126,23 @@ class CalculatorEngine {
         var historyLine: String? = null
         if (isCalculable && currentInput != "Error") {
             val resultStr = addCommas(formatDisplay(currentInput))
-            historyLine = "$prevStr $opStr $currentStr = $resultStr"
+            historyLine = "$expressionString$currentStr = $resultStr"
         }
 
         currentOperator = 0
         isWaitingForNextNumber = true
         lastActionWasOperator = false
+
+        isCalculated = true
+        expressionString = ""
+
         logState("equalClick")
 
         return EngineState(
             displayText = addCommas(formatDisplay(currentInput)),
             hasMemory = memoryValue.compareTo(BigDecimal.ZERO) != 0,
-            newHistoryLine = historyLine
+            newHistoryLine = historyLine,
+            expressionText = expressionString
         )
     }
 
@@ -168,6 +186,8 @@ class CalculatorEngine {
         memoryValue = BigDecimal.ZERO
         isWaitingForNextNumber = true
         lastActionWasOperator = false
+        expressionString = "" // ★追加
+        isCalculated = false
         logState("clearAC (CA)")
         return getState()
     }
@@ -252,34 +272,6 @@ class CalculatorEngine {
         isWaitingForNextNumber = true
         lastActionWasOperator = false
         logState("percent")
-        return getState()
-    }
-
-    fun taxPlus(rate: Double): EngineState {
-        try {
-            val currentVal = BigDecimal(currentInput)
-            val rateBd = BigDecimal(rate.toString()).divide(BigDecimal("100"))
-            val multiplier = BigDecimal.ONE.add(rateBd)
-            val result = currentVal.multiply(multiplier).setScale(0, RoundingMode.DOWN)
-            currentInput = formatBigDecimal(result)
-        } catch(e: Exception) { currentInput = "Error" }
-        isWaitingForNextNumber = true
-        lastActionWasOperator = false
-        logState("taxPlus")
-        return getState()
-    }
-
-    fun taxMinus(rate: Double): EngineState {
-        try {
-            val currentVal = BigDecimal(currentInput)
-            val rateBd = BigDecimal(rate.toString()).divide(BigDecimal("100"))
-            val divisor = BigDecimal.ONE.add(rateBd)
-            val result = currentVal.divide(divisor, 10, RoundingMode.HALF_UP).setScale(0, RoundingMode.DOWN)
-            currentInput = formatBigDecimal(result)
-        } catch(e: Exception) { currentInput = "Error" }
-        isWaitingForNextNumber = true
-        lastActionWasOperator = false
-        logState("taxMinus")
         return getState()
     }
 }

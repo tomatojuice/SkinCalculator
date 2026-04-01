@@ -20,8 +20,8 @@ android {
         applicationId = "com.ratolab.skin.calculator"
         minSdk = 26
         targetSdk = 36
-        versionCode = 13
-        versionName = "1.3.1"
+        versionCode = 14
+        versionName = "1.4.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

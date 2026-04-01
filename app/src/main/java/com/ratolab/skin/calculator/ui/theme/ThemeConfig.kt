@@ -32,14 +32,13 @@ fun getAppThemeConfig(theme: AppThemeType): AppThemeConfig {
         AppThemeType.GREY -> AppThemeConfig(Color(0xFFFAFAFA), Color(0xFFEEEEEE), Color(0xFFFFFFFF), Color(0xFFCFD8DC), defAccTop, defAccBot)
 
         // --- パステル ---
-        AppThemeType.MACARON -> AppThemeConfig(Color(0xFFFFF0F5), Color(0xFFFCE4EC), Color(0xFFFCE4EC), Color(0xFFF8BBD0), defAccTop, defAccBot)
-        AppThemeType.COTTON_CANDY -> AppThemeConfig(Color(0xFFF3E5F5), Color(0xFFE1BEE7), Color(0xFFE1BEE7), Color(0xFFB3E5FC), defAccTop, defAccBot)
-        AppThemeType.UNICORN -> AppThemeConfig(Color(0xFFEDE7F6), Color(0xFFD1C4E9), Color(0xFFD1C4E9), Color(0xFFF8BBD0), defAccTop, defAccBot)
-        AppThemeType.SHERBET -> AppThemeConfig(Color(0xFFFFFDE7), Color(0xFFFFF9C4), Color(0xFFFFF9C4), Color(0xFFFFCC80), defAccTop, defAccBot)
-        AppThemeType.PEACH_MILK -> AppThemeConfig(Color(0xFFFBE9E7), Color(0xFFFFE0B2), Color(0xFFFFE0B2), Color(0xFFFFAB91), defAccTop, defAccBot)
-        AppThemeType.PISTACHIO -> AppThemeConfig(Color(0xFFF1F8E9), Color(0xFFF0F4C3), Color(0xFFF0F4C3), Color(0xFFC5E1A5), defAccTop, defAccBot)
-        AppThemeType.LAVENDER -> AppThemeConfig(Color(0xFFF3E5F5), Color(0xFFE1BEE7), Color(0xFFE1BEE7), Color(0xFFCE93D8), defAccTop, defAccBot)
-
+        AppThemeType.MACARON -> AppThemeConfig(Color(0xFFFFF0F5), Color(0xFFFCE4EC), Color(0xFFFEF0F4), Color(0xFFF8BBD0), defAccTop, defAccBot)
+        AppThemeType.COTTON_CANDY -> AppThemeConfig(Color(0xFFF3E5F5), Color(0xFFE1BEE7), Color(0xFFF0E0F4), Color(0xFFB3E5FC), defAccTop, defAccBot)
+        AppThemeType.UNICORN -> AppThemeConfig(Color(0xFFEDE7F6), Color(0xFFD1C4E9), Color(0xFFE8E1F4), Color(0xFFF8BBD0), defAccTop, defAccBot)
+        AppThemeType.SHERBET -> AppThemeConfig(Color(0xFFFFFDE7), Color(0xFFFFF9C4), Color(0xFFFFFCDE), Color(0xFFFFCC80), defAccTop, defAccBot)
+        AppThemeType.PEACH_MILK -> AppThemeConfig(Color(0xFFFBE9E7), Color(0xFFFFE0B2), Color(0xFFFFF1DB), Color(0xFFFFAB91), defAccTop, defAccBot)
+        AppThemeType.PISTACHIO -> AppThemeConfig(Color(0xFFF1F8E9), Color(0xFFF0F4C3), Color(0xFFF8FAE6), Color(0xFFC5E1A5), defAccTop, defAccBot)
+        AppThemeType.LAVENDER -> AppThemeConfig(Color(0xFFF3E5F5), Color(0xFFE1BEE7), Color(0xFFF0E0F4), Color(0xFFCE93D8), defAccTop, defAccBot)
         AppThemeType.MARBLE -> AppThemeConfig(Color(0xFFFFFFFF), Color(0xFFF5F5F5), Color(0xFFFFFFFF), Color(0xFFE0E0E0), Color(0xFFBCAAA4), Color(0xFF8D6E63))
 
         // --- ボカロスペシャル ---

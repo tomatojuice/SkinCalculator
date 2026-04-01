@@ -440,6 +440,7 @@ fun ThemeSwatch(theme: AppThemeType, isSelected: Boolean, onClick: () -> Unit) {
 @Composable
 fun DisplayArea(modifier: Modifier, uiState: CalculatorUiState, showMenu: Boolean, isRoundShape: Boolean, onMenuToggle: (Boolean) -> Unit, onShowHistory: () -> Unit, onNavigateToHelp: () -> Unit, onShowThemeSheet: () -> Unit, onShowLanguageSheet: () -> Unit, onShowTaxDialog: () -> Unit, onShapeToggle: (Boolean) -> Unit, onVibToggle: (Boolean) -> Unit) {
     Box(modifier = modifier.padding(start = 16.dp, top = 16.dp, end = 4.dp, bottom = 16.dp)) {
+        // --- メニューや履歴ボタン ---
         Row(modifier = Modifier.align(Alignment.TopEnd)) {
             IconButton(onClick = onShowHistory) { Icon(Icons.Default.List, stringResource(R.string.cd_history), tint = Color.Gray) }
             Box {
@@ -464,20 +465,39 @@ fun DisplayArea(modifier: Modifier, uiState: CalculatorUiState, showMenu: Boolea
                 }
             }
         }
-        var fontSizeMultiplier by remember(uiState.displayText) { mutableFloatStateOf(1f) }
-        Text(
-            text = uiState.displayText,
-            fontSize = 64.sp * fontSizeMultiplier,
-            color = Color.DarkGray,
-            style = TextStyle(shadow = null),
-            textAlign = TextAlign.End,
-            maxLines = 1,
-            softWrap = false,
-            onTextLayout = { textLayoutResult ->
-                if (textLayoutResult.hasVisualOverflow) { fontSizeMultiplier *= 0.9f }
-            },
-            modifier = Modifier.align(Alignment.BottomEnd).fillMaxWidth()
-        )
+
+        // ★ 数字と計算過程の表示エリア
+        Column(
+            modifier = Modifier.align(Alignment.BottomEnd).fillMaxWidth(),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.End
+        ) {
+            // ★ 新規追加：計算過程（1 + 2 + ...）を小さくグレーで表示
+            Text(
+                text = uiState.expressionText,
+                fontSize = 24.sp,
+                color = Color.Gray,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(bottom = 4.dp, end = 4.dp)
+            )
+
+            // 既存：メインの入力中の数字
+            var fontSizeMultiplier by remember(uiState.displayText) { mutableFloatStateOf(1f) }
+            Text(
+                text = uiState.displayText,
+                fontSize = 64.sp * fontSizeMultiplier,
+                color = Color.DarkGray,
+                style = TextStyle(shadow = null),
+                textAlign = TextAlign.End,
+                maxLines = 1,
+                softWrap = false,
+                onTextLayout = { textLayoutResult ->
+                    if (textLayoutResult.hasVisualOverflow) { fontSizeMultiplier *= 0.9f }
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }
 
