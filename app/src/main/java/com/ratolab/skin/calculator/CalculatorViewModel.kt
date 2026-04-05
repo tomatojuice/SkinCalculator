@@ -17,7 +17,7 @@ import java.util.Locale // ★追加：言語取得用
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
-// ★追加：端末のシステム言語を取得し、アプリが対応していない言語の場合は「英語(en)」をデフォルトにする
+// 端末のシステム言語を取得し、アプリが対応していない言語の場合は「英語(en)」をデフォルトにする
 val systemLang = Locale.getDefault().language
 val supportedLangs = listOf("ja", "en", "es", "de", "ru", "zh", "ko", "hi", "fr")
 val defaultLanguageCode = if (supportedLangs.contains(systemLang)) systemLang else "en"
@@ -70,7 +70,7 @@ class CalculatorViewModel(application: Application) : AndroidViewModel(applicati
                         isRoundShape = savedShape,
                         taxRate = savedTax,
                         vibrationEnabled = savedVib,
-                        // ★変更：ユーザーがアプリ内で言語を明示的に選んでいない場合は、システム言語に従う
+                        // ユーザーがアプリ内で言語を明示的に選んでいない場合は、システム言語に従う
                         languageCode = preferences[LANG_KEY] ?: defaultLanguageCode
                     )
                 }

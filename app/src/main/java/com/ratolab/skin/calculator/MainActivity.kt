@@ -683,11 +683,11 @@ fun HelpScreen(currentTheme: AppThemeType, onBack: () -> Unit) {
                 Text(stringResource(R.string.help_credit), fontSize = 12.sp, color = Color.Gray, modifier = Modifier.align(Alignment.CenterHorizontally))
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Button(onClick = { try { uriHandler.openUri("https://www.youtube.com/@Tomato_Juice") } catch (e: Exception) { scope.launch { snackbarHostState.showSnackbar(errorMsg) } } }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFCD201F)), modifier = Modifier.fillMaxWidth().height(50.dp)) {
-                    Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.help_youtube), color = Color.White, fontWeight = FontWeight.Bold)
-                }
+//                Button(onClick = { try { uriHandler.openUri("https://www.youtube.com/@Tomato_Juice") } catch (e: Exception) { scope.launch { snackbarHostState.showSnackbar(errorMsg) } } }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFCD201F)), modifier = Modifier.fillMaxWidth().height(50.dp)) {
+//                    Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White)
+//                    Spacer(modifier = Modifier.width(8.dp))
+//                    Text(stringResource(R.string.help_youtube), color = Color.White, fontWeight = FontWeight.Bold)
+//                }
                 Spacer(modifier = Modifier.height(12.dp))
                 Button(onClick = { try { uriHandler.openUri("https://tomatojuice.github.io/SkinCalculator/") } catch (e: Exception) { scope.launch { snackbarHostState.showSnackbar(errorMsg) } } }, colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF24292E)), modifier = Modifier.fillMaxWidth().height(50.dp)) {
                     Icon(painterResource(R.drawable.ic_github), contentDescription = null, tint = Color.White)
